@@ -1,16 +1,14 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/navbar";
-import { ConditionalFooter } from "@/components/conditional-footer";
+import { Toaster } from "sonner";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://relevantresearch.org";
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://relevantresearch.org",
-  ),
+  metadataBase: new URL(BASE_URL),
   title: "Relevant Research - Web Development, Data Analysis & Public Impact",
   description:
     "We help scholars amplify their research visibility and influence through web development, data analysis, and strategic public impact solutions.",
@@ -18,7 +16,7 @@ export const metadata: Metadata = {
     title: "Relevant Research - Web Development, Data Analysis & Public Impact",
     description:
       "We help scholars amplify their research visibility and influence through web development, data analysis, and strategic public impact solutions.",
-    url: "https://relevantresearch.org",
+    url: BASE_URL,
     siteName: "Relevant Research",
     images: [
       {
@@ -47,16 +45,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          <main>{children}</main>
-          <ConditionalFooter />
-        </ThemeProvider>
+        {children}
+        <Toaster />
       </body>
     </html>
   );
